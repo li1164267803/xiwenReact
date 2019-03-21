@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './common/style/index.less';
 import App from './App';
+// import 'antd/dist/antd.css'//全局引入antd文件样式
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
