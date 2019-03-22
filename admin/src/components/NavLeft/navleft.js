@@ -13,7 +13,7 @@ export default withRouter( class NavLeft extends Component{
     }
     rendlist(data){//渲染界面
         // let data = menuData.menuData
-        console.log(data);
+        // console.log(data);
         return data.map((item)=>{
             if(item.children){
                 return(
@@ -33,7 +33,7 @@ export default withRouter( class NavLeft extends Component{
     render() {
       return (
         <div className='navleft'>
-            <Menu>
+            <Menu className='navleft-one'>
                 {this.rendlist(menuData.menuData)}
             </Menu>
         </div>

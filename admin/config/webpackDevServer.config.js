@@ -81,7 +81,14 @@ module.exports = function(proxy, allowedHost) {
       disableDotRule: true,
     },
     public: allowedHost,
-    proxy,
+    proxy,//相当于vue中的proxytable 服务器代理
+    // :{
+    //     '/hehe':{
+    //         target:'',
+    //         changeOrigin:true,
+    //         pathRewrite:{'^/hehe':''}
+    //     }
+    // },
     before(app, server) {
       if (fs.existsSync(paths.proxySetup)) {
         // This registers user provided middleware for proxy reasons
