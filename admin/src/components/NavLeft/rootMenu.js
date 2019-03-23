@@ -73,5 +73,10 @@ export default{
                 },
             ]
         },
+        {
+            name:'商品管理',
+            path:'/admin/goods',
+            id:'5'
+        },
     ]
 }

@@ -11,7 +11,7 @@ import { Form, Icon, Input, Button, Checkbox,Card,message} from 'antd';
           .then((data)=>{
               if(data.err===1){//成功
                 message.success('登录成功，2秒后自动跳转',2,()=>{
-                    this.props.history.push('/admin')
+                    this.props.history.push('/admin/home')
                 });
               }else{//失败
                 message.error(data.msg,1)

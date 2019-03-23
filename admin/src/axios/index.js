@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 //配置
-Axios.defaults.baseURL = 'https://easy-mock.com/mock/5c947b6eca36bd2d9cb7edbc';
+Axios.defaults.baseURL = 'https://easy-mock.com/mock/5c947b6eca36bd2d9cb7edbc/';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 //使用

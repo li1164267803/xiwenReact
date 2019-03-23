@@ -23,7 +23,13 @@ class Router extends Component{
                                         )
                                     }}>
                                     </Route>
-                                    <Route path='/admin/setting' component={Goods}></Route>
+                                    <Route path='/admin/setting' render={()=>{
+                                        return(
+                                            <div>这里是设置</div>
+                                        )
+                                    }}>
+                                    </Route>
+                                    <Route path='/admin/goods' component={Goods}></Route>
                                 </Admin>
                             )
                         }}>
