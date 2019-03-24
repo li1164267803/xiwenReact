@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
-import {Card,Table,Popconfirm,Button,Pagination,Spin} from 'antd'
+import {Card,Table,Popconfirm,Button,Pagination,Spin,message} from 'antd'
 // import Data from './data'
+import './goods.less'
+// import Item from 'antd/lib/list/Item';
 class Goods extends Component{
     constructor(){
         super()
@@ -21,15 +23,22 @@ class Goods extends Component{
             title: 'id',
             dataIndex: '_id',
             key: '_id',
+            width:80,
+            fixed:'left',
+            align:'center',
           }, {
             title: '名称',
             dataIndex: 'name',
             key: 'name',
+            width:100,
+            align:'center',
           },{
             title:'商品类型',
             dataIndex:'type',
             key:'type',
-            render:(data)=>{
+            width:100,
+            align:'center',
+            render:(test)=>{
                 let types=['热菜','凉菜','猛龙过江','辣椒炒月饼','火山飘雪']
                 return(
                     <span>{types[test]}</span>
@@ -40,6 +49,7 @@ class Goods extends Component{
                 dataIndex:'price',
                 key:'price',
                 width:80,
+                align:'center',
                 render(text){
                    return <span>${text}</span>
                 }
@@ -47,24 +57,29 @@ class Goods extends Component{
               title:'图片',
               dataIndex:'imgPath',
               key:'imgPath',
+              width:100,
+              align:'center',
               render:(data)=>{
-                  console.log(data);
+                //   console.log(data);
                   return(
-                      <img src={data} width='100' alt=''/>
+                      <img src={data} width='50' alt=''/>
                   )
               }
           },{
             title:'操作',
             dataIndex:'Aciton',
             key:'Aciton',
-            render:(data)=>{
+            width:100,
+            fixed:'right',
+            align:'center',
+            render:(tmp,data)=>{//两个参数  第二个参数为数据
                 return(
                     <div>
                         <Popconfirm
                             title="确定要删除这条数据吗??" 
-                            onConfirm={this.del.bind(this)} 
+                            onConfirm={this.del.bind(this,data)} 
                             okText="确定" 
-                            cancelText="取消"
+                            cancelText="取消"                            
                         >
                             <Button size='small' type='danger'>删除</Button>
                         </Popconfirm>
@@ -74,8 +89,34 @@ class Goods extends Component{
             }
           }]
     }
-    del(){
-        alert('删除')
+    del(data){
+        // console.log(data)
+        //假删除 不请求数据 直接去操作本地数据
+        // this.$axios.get('/delProduct')
+        // .then((result)=>{
+        //     if(result.err===0){
+        //         let tmpdata = this.state.dataSource.filter((item)=>{
+        //             if(item._id==data._id){
+        //                 return false
+        //             }else{
+        //                 return true
+        //             }
+        //         })
+        //         message.success('删除成功',1);
+        //         this.setState({dataSource:tmpdata})
+        //     }else{
+        //         message.error('删除失败',1)
+        //     }
+        // })
+        this.$axios('/delProduct')
+        .then((result)=>{
+            if(result.err===0){
+                message.success('删除成功',1)
+                this.loadTableData()
+            }else{
+                message.error('删除失败',1)
+            }
+        })
     }
     componentDidMount(){
         console.log('挂载d ')
@@ -88,7 +129,11 @@ class Goods extends Component{
             this.setState({dataSource:data.dataSource,spinning:false})
         })
     }
+    changePage(){
+        this.loadTableData()
+    }
     render() {
+        console.log('render')
         let {spinning,dataSource} = this.state
       return (
         <Card>
@@ -97,9 +142,10 @@ class Goods extends Component{
                     dataSource={dataSource}
                     columns={this.columns}
                     pagination={false}
-                    scroll={{y:240}}
+                    scroll={{y:240,x:1300}}
+                    bordered
                 />
-                <Pagination simple defaultCurrent={2} total={50}></Pagination>
+                <Pagination simple defaultCurrent={2} total={50} onChange={this.changePage.bind(this)}></Pagination>
             </Spin>
         </Card>
       )
