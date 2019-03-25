@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick='closeWs()'></button>
+    <button onclick='sendmsg()'></button>
+    <script>
+        const ws = new WebSocket('ws://localhost:8080/')
+        ws.onopen=()=>{
+            console.log('与服务器连接')
+        } 
+        ws.onmessage=(msg)=>{
+            //接受服务器端发送消息接受
+            console.log(msg)
+        }
+        ws.onclose=()=>{
+            //服务器端主动断块连接触发
+            console.log('服务端关闭')
+        }
+
+        function closeWs(){
+            ws.close()
+        }
+
+        function sendmsg(){
+            ws.send('我是客户端')
+            //向服务器端发送消息
+        }
+    </script>
+</body>
+</html>

@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
-import {Card,Table,Popconfirm,Button,Pagination,Spin,message} from 'antd'
+import {Card,Table,Popconfirm,Button,Pagination,Spin,message,Modal} from 'antd'
 // import Data from './data'
 import './goods.less'
+import AddGoods from './addGoods'
+import UpdateGoods from './updateGoods'
 // import Item from 'antd/lib/list/Item';
 class Goods extends Component{
     constructor(){
@@ -9,6 +11,9 @@ class Goods extends Component{
         this.state={
             dataSource:[],
             spinning:true,
+            modalShow:false,
+            modalShowUpdate:false,
+            selInfo:{}
         }
         // ctime: "2019-01-04T01:36:57.570Z",
         // imgPath: "/static/img/product-dryfruit@1.png",
@@ -83,7 +88,9 @@ class Goods extends Component{
                         >
                             <Button size='small' type='danger'>删除</Button>
                         </Popconfirm>
-                        <Button size='small'>修改</Button>
+                        <Button size='small'
+                            onClick={this.UppProduct.bind(this,data)}
+                        >修改</Button>
                     </div>
                 )
             }
@@ -132,13 +139,28 @@ class Goods extends Component{
     changePage(){
         this.loadTableData()
     }
+    addProduct(){
+        this.setState({modalShow:true})
+    }
+    hideModal(){
+        this.setState({modalShow:false})
+    }
+    UppProduct(data){
+        this.setState({modalShowUpdate:true,selInfo:data})
+        console.log(data)
+    }
+    hideUpModal(){
+        this.setState({modalShowUpdate:false})
+    }
     render() {
         console.log('render')
-        let {spinning,dataSource} = this.state
+        let {spinning,dataSource,modalShow,modalShowUpdate} = this.state
       return (
         <Card>
+            <Button onClick={this.addProduct.bind(this)}>添加商品</Button>
             <Spin spinning={spinning}>
                 <Table 
+                    rowKey='_id'
                     dataSource={dataSource}
                     columns={this.columns}
                     pagination={false}
@@ -147,6 +169,21 @@ class Goods extends Component{
                 />
                 <Pagination simple defaultCurrent={2} total={50} onChange={this.changePage.bind(this)}></Pagination>
             </Spin>
+            <Modal visible={modalShow}
+                    title='添加商品'
+                    footer={null}
+                    onCancel={this.hideModal.bind(this)}
+            >
+                <AddGoods hideModal={this.hideModal.bind(this)}></AddGoods>
+            </Modal>
+            <Modal
+                title='修改商品'
+                visible={modalShowUpdate}
+                footer={null}
+                onCancel={this.hideUpModal.bind(this)}
+            >
+                <UpdateGoods hideUpModal={this.hideUpModal.bind(this)}></UpdateGoods>
+            </Modal>
         </Card>
       )
     }

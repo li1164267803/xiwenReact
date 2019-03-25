@@ -34,39 +34,39 @@ export default{
             children:[
                 {
                     name:'饼状图',
-                    path:'/echart/bin',
+                    path:'/admin/echart/pie',
                     id:40,
                     children:[
                         {
                             name:'饼1',
-                            path:'/echart/bin/1',
+                            path:'/admin/echart/pie/pie1',
                             id:401,
                         },
                         {
                             name:'饼2',
-                            path:'/echart/bin/2',
+                            path:'/admin/echart/pie/pie2',
                             id:402,
                         },
                         {
                             name:'饼3',
-                            path:'/echart/bin/3',
+                            path:'/admin/echart/pie/pie3',
                             id:403,
                         },
                     ]
                 },
                 {
                     name:'折线图',
-                    path:'/echart/line',
+                    path:'/admin/echart/line',
                     id:41,
                     children:[
                         {
                             name:'线线1',
-                            path:'/echart/line/1',
+                            path:'/admin/echart/line/line1',
                             id:411,
                         },
                         {
                             name:'线线2',
-                            path:'/echart/line/2',
+                            path:'/admin/echart/line/line2',
                             id:412,
                         },
                     ]
