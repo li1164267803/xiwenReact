@@ -46,19 +46,20 @@ class component extends Component{
 		}
 	}
     getOption(){
-		// let echart = JSON.stringify(this.state.data)
-		// let newData = JSON.parse(echart)
-	  	// let tmp = [
-		// 	{value:5, name:'直接访问'},
-		// 	{value:6, name:'邮件营销'},
-		// 	{value:45, name:'联盟广告'},
-		// 	{value:15, name:'视频广告'},
-		// 	{value:457, name:'搜索引擎'}
-		// ]
-		// newData.series[0]['data'] = tmp
-		// console.log(newData)
-		// this.setState({data:newData})
-
+		let echart = JSON.stringify(this.state.data)
+		let newData = JSON.parse(echart)
+	  	let tmp = [
+			{value:5, name:'直接访问'},
+			{value:6, name:'邮件营销'},
+			{value:45, name:'联盟广告'},
+			{value:15, name:'视频广告'},
+			{value:457, name:'搜索引擎'}
+		]
+		newData.series[0]['data'] = tmp
+		console.log(newData)
+	  	this.setState({data:newData})
+	}
+	componentDidMount(){
 		this.timer=setInterval(()=>{//轮询请求数据
 			this.$axios.get('/piedata')
 			.then((res)=>{
@@ -66,30 +67,6 @@ class component extends Component{
 				this.setState({data:res.data})
 			})
 		},1000)
-	}
-	componentDidMount(){
-        this.ws = new WebSocket('ws://localhost:8080')
-        this.ws.open=()=>{
-            console.log('服务器连接')
-        }
-        this.ws.onmessage=(msg)=>{
-            console.log('接受数据')
-            // console.log(msg)
-            let tmp = JSON.parse(msg.data)
-            if(tmp.err === 0){
-                let tmpData = JSON.stringify(this.state.data)
-                let newData = JSON.parse(tmpData)
-                newData.series[0].data = tmp.data
-                this.setState({data:newData})
-            }
-        }
-		// this.timer=setInterval(()=>{//轮询请求数据
-		// 	this.$axios.get('/piedata')
-		// 	.then((res)=>{
-		// 		// console.log(res)
-		// 		this.setState({data:res.data})
-		// 	})
-		// },1000)
 	}
 	componentWillUnmount(){
 		console.log('卸载定时器')

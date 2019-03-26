@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./socket.io.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="sendMsg()">   sendMsg </button>
+    <script>
+        //创建前段的连接对象
+        let socket = io.connect('http://localhost:8081',()=>{
+            console.log('服务器连接');
+        });
+        socket.on('hehe',(msg)=>{
+            console.log(msg)
+        })
+        socket.on('reward',(msg)=>{
+            alert(msg)
+        })
+        //创建前端的socket自定义事件等服务器触发
+        function sendMsg(){
+            console.log(111);
+            socket.emit('backApi','服务器 我来了')
+        }
+    </script>
+</body>
+</html>
